@@ -1,0 +1,55 @@
+server:
+  port: 7899
+
+spring:
+  application:
+    name: gateway
+
+  threads:
+    virtual:
+      enabled: true
+
+  main:
+    web-application-type: reactive
+
+eureka:
+  server:
+    peer-node-read-timeout-ms: 10000
+    peer-node-connect-timeout-ms: 5000
+    enable-self-preservation: false
+  client:
+    service-url:
+      defaultZone: http://${eureka.security.username}:${eureka.security.password}@localhost:${server.port}/eureka/
+    register-with-eureka: false
+    fetch-registry: false
+    healthcheck:
+      enabled: true
+  instance:
+    lease-renewal-interval-in-seconds: 15
+    lease-expiration-duration-in-seconds: 45
+    hostname: localhost
+    prefer-ip-address: false
+  security:
+    username: switchUser
+    password: password123
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+
+  endpoint:
+    health:
+      show-details: always
+
+  threads:
+    virtual:
+      enabled: true
+
+app:
+  route:
+    transfer: http://localhost:2090/
+    user: http://localhost:2091/
+    identity: http://localhost:2092/
+    bills: http://localhost:2093/

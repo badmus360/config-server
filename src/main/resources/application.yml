@@ -1,0 +1,26 @@
+server:
+  port: 8882
+
+spring:
+  application:
+    name: configserver
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/files/
+  security:
+    user:
+      name: configUser
+      password: configPass
+  main:
+    web-application-type: reactive
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,refresh
