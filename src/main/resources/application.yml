@@ -24,3 +24,26 @@ management:
     web:
       exposure:
         include: health,info,refresh
+
+eureka:
+  server:
+    peer-node-read-timeout-ms: 10000
+    peer-node-connect-timeout-ms: 5000
+    enable-self-preservation: false
+  client:
+    service-url:
+      defaultZone: http://${eureka.security.username}:${eureka.security.password}@localhost:${server.port}/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+    healthcheck:
+      enabled: true
+  instance:
+    appname: configserver
+    lease-renewal-interval-in-seconds: 15
+    lease-expiration-duration-in-seconds: 45
+    hostname: localhost
+    prefer-ip-address: false
+  security:
+    username: switchUser
+    password: password123
+

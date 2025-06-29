@@ -12,6 +12,13 @@ spring:
   main:
     web-application-type: reactive
 
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
 eureka:
   server:
     peer-node-read-timeout-ms: 10000
@@ -20,11 +27,12 @@ eureka:
   client:
     service-url:
       defaultZone: http://${eureka.security.username}:${eureka.security.password}@localhost:${server.port}/eureka/
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: true
+    fetch-registry: true
     healthcheck:
       enabled: true
   instance:
+    appname: gateway
     lease-renewal-interval-in-seconds: 15
     lease-expiration-duration-in-seconds: 45
     hostname: localhost
@@ -49,7 +57,10 @@ management:
 
 app:
   route:
-    transfer: http://localhost:2090/
-    user: http://localhost:2091/
-    identity: http://localhost:2092/
-    bills: http://localhost:2093/
+    transfer: http://localhost:8099
+    user: http://localhost:8096
+    identity: http://localhost:8091
+    bills: http://localhost:8090
+
+  security:
+    api-key: secure-key-12345
