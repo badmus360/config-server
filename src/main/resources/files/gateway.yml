@@ -19,6 +19,13 @@ spring:
           enabled: true
           lower-case-service-id: true
 
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+              lower-case-service-id: true
+
 eureka:
   server:
     peer-node-read-timeout-ms: 10000
@@ -26,7 +33,7 @@ eureka:
     enable-self-preservation: false
   client:
     service-url:
-      defaultZone: http://${eureka.security.username}:${eureka.security.password}@localhost:${server.port}/eureka/
+      defaultZone: http://${eureka.security.username}:${eureka.security.password}@localhost:8761/eureka/
     register-with-eureka: true
     fetch-registry: true
     healthcheck:
@@ -57,10 +64,16 @@ management:
 
 app:
   route:
-    transfer: http://localhost:8099
-    user: http://localhost:8096
-    identity: http://localhost:8091
-    bills: http://localhost:8090
+    transfer: http://localhost:8091
+    user: http://localhost:8090
+    identity: http://localhost:8096
+    bills: http://localhost:8099
 
   security:
     api-key: secure-key-12345
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+    org.springframework.web.reactive: DEBUG
+    reactor.netty.http.client: DEBUG
