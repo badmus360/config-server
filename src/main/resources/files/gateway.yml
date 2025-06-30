@@ -64,9 +64,9 @@ management:
 
 app:
   route:
-    transfer: http://localhost:8091
     user: http://localhost:8090
     identity: http://localhost:8096
+    transfer: http://localhost:8091
     bills: http://localhost:8099
 
   security:
